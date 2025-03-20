@@ -3,31 +3,30 @@ package day2;
 import java.io.InputStream;
 import java.util.Scanner;
 
-public class Day2Part1 {
-    public static void main (String[] args) {
+import static util.InputHandler.handleInputStream;
 
-        InputStream inputStream = Day2Part1.class.getClassLoader().getResourceAsStream("day2input.txt");
+public class Day2Part1 {
+    public static void main(String[] args) {
+
+        InputStream inputStream = handleInputStream("day2input.txt");
         int safeReports = 0;
 
-        if (inputStream != null) {
+        Scanner scanner = new Scanner(inputStream);
 
-            Scanner scanner = new Scanner(inputStream);
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            String[] parts = line.split(" ");
 
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                String[] parts = line.split(" ");
-
-                int[] report = new int[parts.length];
-                for (int i = 0; i < parts.length; i++) {
-                    report[i] = Integer.parseInt(parts[i]);
-                }
-
-                if (isSafe(report)) safeReports++;
+            int[] report = new int[parts.length];
+            for (int i = 0; i < parts.length; i++) {
+                report[i] = Integer.parseInt(parts[i]);
             }
 
-            System.out.println("\n" + safeReports + " safe reports");
+            if (isSafe(report)) safeReports++;
+        }
 
-        } else System.out.println("File not found!");
+        System.out.println("\n" + safeReports + " safe reports");
+
     }
 
 

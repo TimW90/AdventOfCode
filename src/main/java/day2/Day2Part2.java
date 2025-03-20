@@ -5,47 +5,46 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Day2Part2 {
-    public static void main (String[] args) {
+import static util.InputHandler.handleInputStream;
 
-        InputStream inputStream = Day2Part1.class.getClassLoader().getResourceAsStream("day2input.txt");
+public class Day2Part2 {
+    public static void main(String[] args) {
+
+        InputStream inputStream = handleInputStream("day2input.txt");
         int safeReports = 0;
         int reportNumber = 0;
 
-        if (inputStream != null) {
+        Scanner scanner = new Scanner(inputStream);
 
-            Scanner scanner = new Scanner(inputStream);
+        while (scanner.hasNextLine()) {
+            boolean testSafe = false;
+            String line = scanner.nextLine();
+            String[] parts = line.split(" ");
 
-            while (scanner.hasNextLine()) {
-                boolean testSafe = false;
-                String line = scanner.nextLine();
-                String[] parts = line.split(" ");
+            List<Integer> report = new ArrayList<>();
+            for (String part : parts) report.add(Integer.parseInt(part));
 
-                List<Integer> report = new ArrayList<>();
-                for (String part : parts) report.add(Integer.parseInt(part));
+            reportNumber++;
 
-                reportNumber++;
-
-                System.out.println("Report: " + report);
-                ReportResult reportResult = test(report);
-                if (reportResult.isSafe()) {
+            System.out.println("Report: " + report);
+            ReportResult reportResult = test(report);
+            if (reportResult.isSafe()) {
+                safeReports++;
+                testSafe = true;
+            } else {
+                List<Integer> problemDampenedReport = reportResult.report();
+                System.out.println("Problem dampened report: " + problemDampenedReport);
+                if (test(problemDampenedReport).isSafe()) {
                     safeReports++;
                     testSafe = true;
-                } else {
-                    List<Integer> problemDampenedReport = reportResult.report();
-                    System.out.println("Problem dampened report: " + problemDampenedReport);
-                    if (test(problemDampenedReport).isSafe()) {
-                        safeReports++;
-                        testSafe = true;
-                    }
                 }
-                System.out.println("Report " + reportNumber + ": is " + (testSafe ? "safe" : "unsafe "));
-                System.out.println();
             }
+            System.out.println("Report " + reportNumber + ": is " + (testSafe ? "safe" : "unsafe "));
+            System.out.println();
+        }
 
-            System.out.println("\n" + safeReports + " safe reports");
+        System.out.println("\n" + safeReports + " safe reports");
 
-        } else System.out.println("File not found!");
     }
 
     static ReportResult test(List<Integer> report) {
@@ -86,4 +85,5 @@ public class Day2Part2 {
 }
 
 
-record ReportResult(boolean isSafe, List<Integer> report) {}
+record ReportResult(boolean isSafe, List<Integer> report) {
+}
