@@ -12,24 +12,15 @@ public class Day4Part1 {
     public static void main(String[] args) {
 
         InputStream inputStream = handleInputStream("day4input.txt");
-        Pattern xmasPattern = Pattern.compile("XMAS|SAMX");
         ArrayList<String> inputToArray = new ArrayList<>();
-        int count = 0;
-
-        // inputToArray & Horizontal XMAS
         Scanner scanner = new Scanner(inputStream);
-
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             inputToArray.add(line);
-            Matcher xmasMatcher = xmasPattern.matcher(line);
-
-            while (xmasMatcher.find()) {
-                count++;
-            }
         }
 
-        System.out.println(count);
+        // Horizontal XMAS
+        int count = xmasCounter(inputToArray.toString());
 
         // Vertical XMAS
         StringBuilder verticalToHorizontalLine = new StringBuilder();
@@ -39,9 +30,7 @@ public class Day4Part1 {
             }
             verticalToHorizontalLine.append("\n");
         }
-
         count += xmasCounter(verticalToHorizontalLine.toString());
-        System.out.println(count);
 
         // Diagonal XMAS (left to right)
         StringBuilder diagonalLeftToRight = new StringBuilder();
@@ -67,10 +56,7 @@ public class Day4Part1 {
             }
             diagonalLeftToRight.append("\n");
         }
-
         count += xmasCounter(diagonalLeftToRight.toString());
-        System.out.println(count);
-//        System.out.println(diagonalLeftToRight);
 
         // Diagonal XMAS (right to left)
         StringBuilder diagonalRightToLeft = new StringBuilder();
@@ -96,27 +82,19 @@ public class Day4Part1 {
             }
             diagonalRightToLeft.append("\n");
         }
-//        System.out.println(diagonalRightToLeft);
-
         count += xmasCounter(diagonalRightToLeft.toString());
         System.out.println("Total XMAS count = " + count);
-
     }
 
 
     public static int xmasCounter(String input) {
 
         int count = 0;
-        Pattern xmasPattern = Pattern.compile("XMAS|SAMX");
-        Scanner scanner = new Scanner(input);
+        Pattern xmasPattern = Pattern.compile("(?=(XMAS|SAMX))");
+        Matcher xmasMatcher = xmasPattern.matcher(input);
 
-        while (scanner.hasNextLine()) {
-            String line = scanner.nextLine();
-            Matcher xmasMatcher = xmasPattern.matcher(line);
-
-            while (xmasMatcher.find()) {
-                count++;
-            }
+        while (xmasMatcher.find()) {
+            count++;
         }
         return count;
     }
