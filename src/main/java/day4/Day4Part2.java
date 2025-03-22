@@ -25,6 +25,8 @@ public class Day4Part2 {
                 StringBuilder diagonalLeftToRight = new StringBuilder();
                 StringBuilder diagonalRightToLeft = new StringBuilder();
 
+                if (inputToArray.get(y + 1).charAt(x + 1) != 'A') continue;
+
                 while (x <= (xStart + 2) && y <= (yStart + 2)) {
                     diagonalLeftToRight.append(inputToArray.get(y).charAt(x));
                     x++;
