@@ -36,33 +36,31 @@ public class Day5Part1 {
             }
         }
 
-        System.out.println(pageOrderingRulesMap);
-        System.out.println(updatesList);
+        ArrayList<ArrayList<Integer>> correctUpdatesList = new ArrayList<>();
 
         for (ArrayList<Integer> update : updatesList) {
-            for (int number = 0; number < update.size() - 1; number++) {
-                if (pageOrderingRulesMap.containsKey(update.get(number))) {
-                    System.out.println("Update number '" + update.get(number) + "' was found as a 'key' in the HashMap");
-//                    for (int updateNumber : pageOrderingRulesMap.get(number)) {
-//                        System.out.println("UpdateNumber = " + updateNumber);
-//                    }
-                } else System.out.println(update.get(number) + " not found as a 'key' in the HashMap");
+            boolean isCorrect = true;
+            for (int number = update.size() - 1; number >= 0; number--) {
+                if (!isCorrect) {
+                    break;
+                }
+                for (int previousNumber = number - 1; previousNumber >= 0; previousNumber--) {
+                    if (pageOrderingRulesMap.get(update.get(number)).contains(update.get(previousNumber))) {
+                        System.out.println("Update is incorrect! " + update.get(number) + " should be before "
+                                + update.get(previousNumber));
+                        isCorrect = false;
+                        break;
+                    }
+                }
             }
-            System.out.println();
-            System.out.println(pageOrderingRulesMap.get(98).contains(42));
+            if (isCorrect) {
+                System.out.println("Update is correct");
+                correctUpdatesList.add(update);
+            }
         }
 
-
-
+        int score = 0;
+        for (ArrayList<Integer> update : correctUpdatesList) score += (update.get(update.size() / 2));
+        System.out.println("\nTotal score: " + score);
     }
 }
-
-/*
-                                                [46, 98, 96, 88, 42]
-    If I start from the left I should check if pageOrderingRulesMap.get(98).contains(42). If true then the update is
-    not in the correct order. If false then continue to the next: pageOrderingRulesMap.get(96).contains(98 || 42) but I
-    think I will need a .stream for that as contains(98 || 42) will probably not work.
-
-    I could also start from the right and immediately check if key 42 has values 88, 96, 98 or 46 and if so then the
-    update is not in the right order
- */
