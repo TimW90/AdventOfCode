@@ -18,7 +18,7 @@ public class Day6Part1 {
 
         int xAxis = 0, yAxis = 0;
 
-        // Find the starting position (line and index)
+        // Find the starting yAxis and xAxis of the 'guard'
         for (; yAxis < inputArray.size(); yAxis++) {
             if (inputArray.get(yAxis).indexOf('^') != -1) {
                 xAxis = inputArray.get(yAxis).indexOf('^');
