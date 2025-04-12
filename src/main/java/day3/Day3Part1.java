@@ -10,7 +10,7 @@ import static util.InputHandler.handleInputStream;
 public class Day3Part1 {
     public static void main(String[] args) {
 
-        InputStream inputStream = handleInputStream("day3input.txt");
+        InputStream inputStream = handleInputStream("2025/day3input.txt");
         int results = 0;
 
         Scanner scanner = new Scanner(inputStream);

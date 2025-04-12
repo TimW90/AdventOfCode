@@ -8,7 +8,7 @@ import static util.InputHandler.handleInputStream;
 public class Day2Part1 {
     public static void main(String[] args) {
 
-        InputStream inputStream = handleInputStream("day2input.txt");
+        InputStream inputStream = handleInputStream("2025/day2input.txt");
         int safeReports = 0;
 
         Scanner scanner = new Scanner(inputStream);
