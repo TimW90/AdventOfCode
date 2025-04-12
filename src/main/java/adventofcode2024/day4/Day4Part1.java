@@ -1,4 +1,4 @@
-package day4;
+package adventofcode2024.day4;
 
 import java.io.InputStream;
 import java.util.ArrayList;

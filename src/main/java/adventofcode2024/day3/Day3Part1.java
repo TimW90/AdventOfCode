@@ -1,4 +1,4 @@
-package day3;
+package adventofcode2024.day3;
 
 import java.io.InputStream;
 import java.util.Scanner;

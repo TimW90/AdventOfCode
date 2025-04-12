@@ -1,4 +1,4 @@
-package day5;
+package adventofcode2024.day5;
 
 import java.io.InputStream;
 import java.util.*;
