@@ -12,7 +12,7 @@ public class Day6Part1 {
 
     public static void main(String[] args) {
 
-        InputStream inputStream = handleInputStream("2025/day6input.txt");
+        InputStream inputStream = handleInputStream("2024/day6input.txt");
         Scanner scanner = new Scanner(inputStream);
         while (scanner.hasNextLine()) inputArray.add(scanner.nextLine());
 

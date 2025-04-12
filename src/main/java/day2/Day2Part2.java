@@ -10,7 +10,7 @@ import static util.InputHandler.handleInputStream;
 public class Day2Part2 {
     public static void main(String[] args) {
 
-        InputStream inputStream = handleInputStream("2025/day2input.txt");
+        InputStream inputStream = handleInputStream("2024/day2input.txt");
         int safeReports = 0;
         int reportNumber = 0;
 

@@ -13,7 +13,7 @@ public class Day1 {
         int similarityScore = 0;
         ArrayList<Integer> numberList1 = new ArrayList<>();
         ArrayList<Integer> numberList2 = new ArrayList<>();
-        InputStream inputStream = handleInputStream("2025/day1input.txt");
+        InputStream inputStream = handleInputStream("2024/day1input.txt");
 
         Scanner scanner = new Scanner(inputStream);
         while (scanner.hasNextLine()) {

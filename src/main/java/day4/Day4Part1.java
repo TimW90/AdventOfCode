@@ -11,7 +11,7 @@ import static util.InputHandler.handleInputStream;
 public class Day4Part1 {
     public static void main(String[] args) {
 
-        InputStream inputStream = handleInputStream("2025/day4input.txt");
+        InputStream inputStream = handleInputStream("2024/day4input.txt");
         ArrayList<String> inputToArray = new ArrayList<>();
         Scanner scanner = new Scanner(inputStream);
         while (scanner.hasNextLine()) {

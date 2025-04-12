@@ -10,7 +10,7 @@ import static util.InputHandler.handleInputStream;
 public class Day5Part2 {
     public static void main(String[] args) {
 
-        InputStream inputStream = handleInputStream("2025/day5input.txt");
+        InputStream inputStream = handleInputStream("2024/day5input.txt");
         Scanner scanner = new Scanner(inputStream);
         HashMap<Integer, List<Integer>> pageOrderingRulesMap = new HashMap<>();
         Pattern pageOrderingPattern = Pattern.compile("(\\d\\d)\\|(\\d\\d)");
