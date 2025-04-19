@@ -1,6 +1,5 @@
 package adventofcode2015.day7;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -16,62 +15,109 @@ public class Day7Part1 {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(handleInputStream("2015/day7input.txt"));
-        Map<String, String> instructions = new HashMap<>();
+        Map<String, Wire> instructions = new HashMap<>();
 
         while (scanner.hasNextLine()) {
             String[] lineSplit = scanner.nextLine().split(" -> ");
             String wire = lineSplit[1];
             String expression = lineSplit[0];
-            instructions.put(wire, expression);
-        }
 
-        //instructions.forEach((key, value) -> System.out.println(key + " -> " + value));
-
-        // Make an expression class with an isInt method and a switch that looks at the expression (And Or etc.)
-
-
-        // test
-        test.put("ab", "a + b");
-        test.put("a", "5");
-        test.put("b", "c");
-        test.put("c", "10");
-
-        System.out.println("Value of ab = " + testMethod("ab"));
-    }
-
-    public static int testMethod(String key) {
-
-        int value = 0;
-
-        // ab = a + b
-        // a = 5, b = c;
-        // c = 10;
-
-        try {
-            String[] expressionSplit = test.get(key).split(" ");
-            // if expressionSplit.size() = 1 then parse the integer
-            // try testMethod(expressionSplit[0]) and try testMethod(expressionSplit[2]) ?
-            if (Arrays.asList(expressionSplit).contains("+")) {
-                value = (Integer.parseInt(expressionSplit[0]) + Integer.parseInt(expressionSplit[2]));
-            } else {
-                value = Integer.parseInt(test.get(key));
+            try {
+                int value = Integer.parseInt(expression);
+                instructions.put(wire, new Wire(value));
+            } catch (NumberFormatException e) {
+                instructions.put(wire, new Wire(expression));
             }
 
-        } catch (NumberFormatException e) {
-
+            //This is for part 2!
+            // Overriding "b"
+            //instructions.put("b", new Wire(956));
         }
-        return value;
-
-
-
-
-//        try {
-//            value = Integer.parseInt(test.get(key));
-//            System.out.println(key + " = " + value);
-//        } catch (NumberFormatException e) {
-//            value = testMethod(test.get(key));
-//            System.out.println(key + " = " + value);
-//        }
-//        return value;
+        System.out.println("The signal of wire 'a' is: " + instructions.get("a").evaluate(instructions));
     }
+}
+
+class Wire {
+
+   private Integer intValue;
+
+   private final String expression;
+
+
+   public Wire (Integer intValue) {
+       this.intValue = intValue;
+       this.expression = null;
+   }
+
+   public Wire (String expression) {
+       this.intValue = null;
+       this.expression = expression;
+   }
+
+   private boolean hasInt() {
+       return intValue != null;
+   }
+
+   public Integer evaluate(Map<String, Wire> instructions) {
+       if (hasInt()) return intValue;
+
+       String[] expressionSplit = expression.split(" ");
+
+       // The wire is wire case
+       if (expressionSplit.length == 1) {
+           String key = expressionSplit[0];
+           Wire wire = instructions.get(key);
+           return intValue = wire.evaluate(instructions);
+       }
+
+       // The NOT case
+       if (expressionSplit.length == 2) {
+           String key = expressionSplit[1];
+           Wire wire = instructions.get(key);
+           int value = wire.evaluate(instructions);
+           return intValue = ~value;
+
+           // The other cases
+       } else if (expressionSplit.length == 3) {
+           String leftKey = expressionSplit[0];
+           String operator = expressionSplit[1];
+           String rightKey = expressionSplit[2];
+
+           int leftValue;
+           if (stringIsANumber(leftKey)) {
+               leftValue = Integer.parseInt((leftKey));
+           } else {
+               Wire leftWire = instructions.get(leftKey);
+               leftValue = leftWire.evaluate(instructions);
+           }
+
+           int rightValue;
+           if (stringIsANumber(rightKey)) {
+               rightValue = Integer.parseInt(rightKey);
+           } else {
+               Wire rightWire = instructions.get(rightKey);
+               rightValue = rightWire.evaluate(instructions);
+           }
+
+               intValue = switch (operator) {
+               case "AND" -> leftValue & rightValue;
+               case "OR" -> leftValue | rightValue;
+               case "RSHIFT" -> leftValue >> rightValue;
+               case "LSHIFT" -> leftValue << rightValue;
+               default -> throw new IllegalStateException("Unexpected value: " + operator);
+           };
+
+           return intValue;
+
+       } else throw new IllegalArgumentException("Incorrect expression: " + expression);
+   }
+
+   public boolean stringIsANumber(String str) {
+       try {
+           Integer.parseInt(str);
+           return true;
+       } catch (NumberFormatException e) {
+           return false;
+       }
+   }
 }
