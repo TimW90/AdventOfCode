@@ -27,6 +27,8 @@ public class Day7Part1 {
 
         //instructions.forEach((key, value) -> System.out.println(key + " -> " + value));
 
+        // Make an expression class with an isInt method and a switch that looks at the expression (And Or etc.)
+
 
         // test
         test.put("ab", "a + b");
