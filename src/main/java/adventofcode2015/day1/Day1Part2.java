@@ -1,22 +1,19 @@
 package adventofcode2015.day1;
 
-import java.io.InputStream;
-import java.util.Scanner;
+import java.util.List;
 
-import static util.InputHandler.handleInputStream;
+import static util.FileReader.fileInResourcesToArray;
 
 public class Day1Part2 {
     public static void main(String[] args) {
-
-        InputStream inputStream = handleInputStream("2015/day1input.txt");
-        Scanner scanner = new Scanner(inputStream);
-        String input = scanner.nextLine();
+        List<String> fileLines = fileInResourcesToArray("2015/day1input.txt");
+        String line = fileLines.getFirst();
 
         int floor = 0;
-        for (int i = 0; i < input.length(); i++) {
-            floor = input.charAt(i) == '(' ? floor + 1 : floor - 1;
+        for (int i = 0; i < line.length(); i++) {
+            floor += line.charAt(i) == '(' ? 1 : -1;
             if (floor == -1) {
-                System.out.println("The position of the basement = " + (i + 1));
+                System.out.printf("The position of the basement = %d", i + 1);
                 break;
             }
         }
