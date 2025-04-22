@@ -16,12 +16,7 @@ public class Day7Part1 {
             String key = lineSplit[1];
             String expression = lineSplit[0];
 
-            try {
-                int value = Integer.parseInt(expression);
-                instructions.put(key, new Wire(value));
-            } catch (NumberFormatException e) {
-                instructions.put(key, new Wire(expression));
-            }
+            instructions.put(key, new Wire(expression));
         }
 
         Wire wireA = instructions.get("a");

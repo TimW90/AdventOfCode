@@ -6,8 +6,6 @@ import java.util.Map;
 
 import static util.FileReader.fileInResourcesToArray;
 
-//todo: make a reset method that resets all instructions intValue leading up to, in this case, "b"
-
 public class Day7Part2 {
     public static void main(String[] args) {
         List<String> fileLines = fileInResourcesToArray("2015/day7input.txt");
@@ -18,18 +16,17 @@ public class Day7Part2 {
             String key = lineSplit[1];
             String expression = lineSplit[0];
 
-            try {
-                int value = Integer.parseInt(expression);
-                instructions.put(key, new Wire(value));
-            } catch (NumberFormatException e) {
-                instructions.put(key, new Wire(expression));
-            }
+            instructions.put(key, new Wire(expression));
         }
-
-        instructions.put("b", new Wire(956));
 
         Wire wireA = instructions.get("a");
         int wireASignalValue = wireA.evaluate(instructions);
-        System.out.println("The signal of wire 'a' is: " + wireASignalValue);
+
+        instructions.put("b", new Wire("" + wireASignalValue));
+
+        for (Wire instruction : instructions.values()) instruction.resetValue();
+
+        int newWireASignalValue = wireA.evaluate(instructions);
+        System.out.println("The signal of wire 'a' is: " + newWireASignalValue);
     }
 }

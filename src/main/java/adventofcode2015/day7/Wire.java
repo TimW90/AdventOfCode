@@ -8,11 +8,6 @@ class Wire {
 
     private final String expression;
 
-    public Wire(Integer intValue) {
-        this.intValue = intValue;
-        this.expression = null;
-    }
-
     public Wire(String expression) {
         this.expression = expression;
     }
@@ -71,5 +66,9 @@ class Wire {
         } catch (NumberFormatException e) {
             return false;
         }
+    }
+
+    public void resetValue() {
+        this.intValue = null;
     }
 }
