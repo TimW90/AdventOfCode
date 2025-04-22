@@ -25,7 +25,7 @@ public class Day7Part1 {
         }
 
         Wire wireA = instructions.get("a");
-        int WireASignalValue = wireA.evaluate(instructions);
-        System.out.println("The signal of wire 'a' is: " + WireASignalValue);
+        int wireASignalValue = wireA.evaluate(instructions);
+        System.out.println("The signal of wire 'a' is: " + wireASignalValue);
     }
 }
