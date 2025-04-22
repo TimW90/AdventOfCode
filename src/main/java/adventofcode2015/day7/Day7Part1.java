@@ -6,12 +6,7 @@ import java.util.Map;
 
 import static util.FileReader.fileInResourcesToArray;
 
-// Todo: Work in progress
-
 public class Day7Part1 {
-
-    static Map<String, String> test = new HashMap<>();
-
     public static void main(String[] args) {
         List<String> fileLines = fileInResourcesToArray("2015/day7input.txt");
         Map<String, Wire> instructions = new HashMap<>();
@@ -28,7 +23,10 @@ public class Day7Part1 {
                 instructions.put(key, new Wire(expression));
             }
         }
-        System.out.println("The signal of wire 'a' is: " + instructions.get("a").evaluate(instructions));
+
+        Wire wireA = instructions.get("a");
+        int WireASignalValue = wireA.evaluate(instructions);
+        System.out.println("The signal of wire 'a' is: " + WireASignalValue);
     }
 }
 
