@@ -31,4 +31,3 @@ public class Day7Part2 {
         System.out.println("The signal of wire 'a' is: " + WireASignalValue);
     }
 }
-
